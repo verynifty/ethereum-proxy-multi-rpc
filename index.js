@@ -34,7 +34,6 @@ async function post(url, req) {
                 body.push(chunk)
                 })
             res.on('end', () => {
-                console.log("END")
                 const resString = Buffer.concat(body).toString()
                 resolve(resString)
             })
@@ -58,12 +57,10 @@ let RPCS = [
     "https://nodes.mewapi.io/rpc/eth",
     "https://rpc.flashbots.net/",
     "https://eth-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7",
-    "https://rpc.ankr.com/eth",
-    "https://api.mycryptoapi.com/eth",
     "https://cloudflare-eth.com/",
-    "https://eth-mainnet.gateway.pokt.network/v1/5f3453978e354ab992c4da79",
-    "https://mainnet-nethermind.blockscout.com/",
-    "https://mainnet.eth.cloud.ava.do/"
+    "https://api.securerpc.com/v1",
+    "https://1rpc.io/eth",
+    "https://eth-rpc.gateway.pokt.network/"
 ]
 
 function shuffleArray(array) {
@@ -86,21 +83,20 @@ function shuffleArray(array) {
   
 
 app.post('/*', async (req, res) => {
-    console.log(req.body)
     let rpcs = shuffleArray(RPCS);
     for (const rpcUrl of rpcs) {
         try {
             const response = await post(rpcUrl, { method: 'POST', body: (req.body) });
             let resp = JSON.parse(response);
             if (resp.error != null && resp.error.code == -32002) {
-                throw res.error.message
+                throw resp.error.message
             }
-            console.log("RESPONSE: ", response)
+           // console.log("RESPONSE: ", response)
             res.setHeader('Content-Type', 'application/json');
             res.end(response);
             return
         } catch (error) {
-            console.log("NODE GAVE ERROR")
+            console.log("NODE GAVE ERROR", rpcUrl)
             console.log(error)
         }
       
