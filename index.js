@@ -20,7 +20,7 @@ async function post(url, req) {
             'Content-Type': 'application/json',
             'Content-Length': dataString.length,
         },
-        timeout: 1000, // in ms
+        timeout: 3000, // in ms
     }
 
     return new Promise((resolve, reject) => {
@@ -60,7 +60,12 @@ let RPCS = [
     "https://cloudflare-eth.com/",
     "https://api.securerpc.com/v1",
     "https://1rpc.io/eth",
-    "https://eth-rpc.gateway.pokt.network/"
+    "https://eth-rpc.gateway.pokt.network/",
+    "https://yolo-intensive-paper.discover.quiknode.pro/45cad3065a05ccb632980a7ee67dd4cbb470ffbd",
+    "https://eth-mainnet.g.alchemy.com/v2/demo",
+    "https://eth-mainnet.public.blastapi.io",
+    "https://ethereum.publicnode.com",
+    "https://api.bitstack.com/v1/wNFxbiJyQsSeLrX8RRCHi7NpRxrlErZk/DjShIqLishPCTB9HiMkPHXjUM9CNM9Na/ETH/mainnet"
 ]
 
 function shuffleArray(array) {
@@ -89,6 +94,9 @@ app.post('/*', async (req, res) => {
             const response = await post(rpcUrl, { method: 'POST', body: (req.body) });
             let resp = JSON.parse(response);
             if (resp.error != null && resp.error.code == -32002) {
+                throw resp.error.message
+            }
+            if (resp.error != null && resp.error.code == 229) {
                 throw resp.error.message
             }
            // console.log("RESPONSE: ", response)
