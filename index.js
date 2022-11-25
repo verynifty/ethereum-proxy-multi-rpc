@@ -25,6 +25,7 @@ async function post(url, req) {
 
     return new Promise((resolve, reject) => {
         const req = https.request(url, options, (res) => {
+            var start = performance.now();
             if (res.statusCode < 200 || res.statusCode > 299) {
                 return reject(new Error(`HTTP status code ${res.statusCode}`))
             }
@@ -32,8 +33,11 @@ async function post(url, req) {
             const body = []
             res.on('data', (chunk) => {
                 body.push(chunk)
-                })
+            })
             res.on('end', () => {
+                var end = performance.now();
+                var time = end - start;
+                console.log(url, 'Execution time: ' + time);
                 const resString = Buffer.concat(body).toString()
                 resolve(resString)
             })
@@ -65,27 +69,33 @@ let RPCS = [
     "https://eth-mainnet.g.alchemy.com/v2/demo",
     "https://eth-mainnet.public.blastapi.io",
     "https://ethereum.publicnode.com",
-    "https://api.bitstack.com/v1/wNFxbiJyQsSeLrX8RRCHi7NpRxrlErZk/DjShIqLishPCTB9HiMkPHXjUM9CNM9Na/ETH/mainnet"
+    "https://api.bitstack.com/v1/wNFxbiJyQsSeLrX8RRCHi7NpRxrlErZk/DjShIqLishPCTB9HiMkPHXjUM9CNM9Na/ETH/mainnet",
+    "https://eth-mainnet.g.alchemy.com/v2/_vDB38mJZ39GyrIYbhoFtEkxYVydis-o",
+    "https://eth-mainnet.g.alchemy.com/v2/99AGaUrirzYtWyUSS7DrvRFckSAGhcFc",
+    "https://eth-mainnet.g.alchemy.com/v2/SFt1fObAdxidwp4fI4F5TH8PWPxnz6Yj",
+    "https://eth-mainnet.g.alchemy.com/v2/oR2RI3ISaPeRDfEm4IB-f5ios943aPoy",
+    "https://eth-mainnet.g.alchemy.com/v2/CH_ObmGVd-o_02ZW6jryFFrr3GmdbWPi",
+    "https://eth-mainnet.g.alchemy.com/v2/YMRFBPG1iyBwiRQIHThSWZanZj0NXUjv"
 ]
 
 function shuffleArray(array) {
-    let currentIndex = array.length,  randomIndex;
-  
+    let currentIndex = array.length, randomIndex;
+
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
-  
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
     }
-  
+
     return array;
-  }
-  
+}
+
 
 app.post('/*', async (req, res) => {
     let rpcs = shuffleArray(RPCS);
@@ -99,7 +109,7 @@ app.post('/*', async (req, res) => {
             if (resp.error != null && resp.error.code == 229) {
                 throw resp.error.message
             }
-           // console.log("RESPONSE: ", response)
+            // console.log("RESPONSE: ", response)
             res.setHeader('Content-Type', 'application/json');
             res.end(response);
             return
@@ -107,7 +117,7 @@ app.post('/*', async (req, res) => {
             console.log("NODE GAVE ERROR", rpcUrl)
             console.log(error)
         }
-      
+
     }
 })
 
