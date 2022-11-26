@@ -75,7 +75,20 @@ let RPCS = [
     "https://eth-mainnet.g.alchemy.com/v2/SFt1fObAdxidwp4fI4F5TH8PWPxnz6Yj",
     "https://eth-mainnet.g.alchemy.com/v2/oR2RI3ISaPeRDfEm4IB-f5ios943aPoy",
     "https://eth-mainnet.g.alchemy.com/v2/CH_ObmGVd-o_02ZW6jryFFrr3GmdbWPi",
-    "https://eth-mainnet.g.alchemy.com/v2/YMRFBPG1iyBwiRQIHThSWZanZj0NXUjv"
+    "https://eth-mainnet.g.alchemy.com/v2/YMRFBPG1iyBwiRQIHThSWZanZj0NXUjv",
+    "https://eth-mainnet.g.alchemy.com/v2/YViRFlzFSftOMSgTV6oTNTOcDH3EnD2a",
+    "https://eth-mainnet.g.alchemy.com/v2/efXR38GZnylTQiAq5uTQ6ys_Bl5JEMD0",
+    "https://mainnet.infura.io/v3/d65858b010d249419cf8687eca12b094",
+    "https://mainnet.infura.io/v3/d74bd8586b9e44449cef131d39ceeefb",
+    "https://mainnet.infura.io/v3/6d3fecb13dea4c6086e1984b4a520fd0",
+    "https://mainnet.infura.io/v3/226c57463e9247bdaf7c402aa42fd259",
+    "https://mainnet.infura.io/v3/580d35e44f36477f83545f2ae135a98f",
+    "https://mainnet.infura.io/v3/b282e18b153f4c909c0036b728c82684",
+    "https://mainnet.infura.io/v3/5ed13b00e00c4b7c8f98246c690b7517",
+    "https://mainnet.infura.io/v3/93ca33aa55d147f08666ac82d7cc69fd",
+    "https://mainnet.infura.io/v3/7aef3f0cd1f64408b163814b22cc643c",
+    "https://mainnet.infura.io/v3/b203d49348c546c2b5614e5197788937",
+    "https://mainnet.infura.io/v3/a1743f084f8a46bfb3696389eeb9f217"
 ]
 
 function shuffleArray(array) {
