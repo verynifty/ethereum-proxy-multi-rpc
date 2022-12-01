@@ -66,7 +66,6 @@ let RPCS = [
     "https://1rpc.io/eth",
     "https://eth-rpc.gateway.pokt.network/",
     "https://yolo-intensive-paper.discover.quiknode.pro/45cad3065a05ccb632980a7ee67dd4cbb470ffbd",
-    "https://eth-mainnet.g.alchemy.com/v2/demo",
     "https://eth-mainnet.public.blastapi.io",
     "https://ethereum.publicnode.com",
     "https://api.bitstack.com/v1/wNFxbiJyQsSeLrX8RRCHi7NpRxrlErZk/DjShIqLishPCTB9HiMkPHXjUM9CNM9Na/ETH/mainnet",
@@ -78,17 +77,6 @@ let RPCS = [
     "https://eth-mainnet.g.alchemy.com/v2/YMRFBPG1iyBwiRQIHThSWZanZj0NXUjv",
     "https://eth-mainnet.g.alchemy.com/v2/YViRFlzFSftOMSgTV6oTNTOcDH3EnD2a",
     "https://eth-mainnet.g.alchemy.com/v2/efXR38GZnylTQiAq5uTQ6ys_Bl5JEMD0",
-    "https://mainnet.infura.io/v3/d65858b010d249419cf8687eca12b094",
-    "https://mainnet.infura.io/v3/d74bd8586b9e44449cef131d39ceeefb",
-    "https://mainnet.infura.io/v3/6d3fecb13dea4c6086e1984b4a520fd0",
-    "https://mainnet.infura.io/v3/226c57463e9247bdaf7c402aa42fd259",
-    "https://mainnet.infura.io/v3/580d35e44f36477f83545f2ae135a98f",
-    "https://mainnet.infura.io/v3/b282e18b153f4c909c0036b728c82684",
-    "https://mainnet.infura.io/v3/5ed13b00e00c4b7c8f98246c690b7517",
-    "https://mainnet.infura.io/v3/93ca33aa55d147f08666ac82d7cc69fd",
-    "https://mainnet.infura.io/v3/7aef3f0cd1f64408b163814b22cc643c",
-    "https://mainnet.infura.io/v3/b203d49348c546c2b5614e5197788937",
-    "https://mainnet.infura.io/v3/a1743f084f8a46bfb3696389eeb9f217"
 ]
 
 function shuffleArray(array) {
@@ -120,6 +108,9 @@ app.post('/*', async (req, res) => {
                 throw resp.error.message
             }
             if (resp.error != null && resp.error.code == 229) {
+                throw resp.error.message
+            }
+            if (resp.error != null && resp.error.code == -32603) {
                 throw resp.error.message
             }
             // console.log("RESPONSE: ", response)
