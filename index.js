@@ -113,6 +113,9 @@ app.post('/*', async (req, res) => {
             if (resp.error != null && resp.error.code == -32603) {
                 throw resp.error.message
             }
+            if (resp.error != null && resp.error.message == "Restricted endpoint: contract address not allowed.") {
+                throw resp.error.message
+            }
             // console.log("RESPONSE: ", response)
             res.setHeader('Content-Type', 'application/json');
             res.end(response);
